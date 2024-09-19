@@ -1,7 +1,9 @@
+import Todo from "./components/Todo";
+
 const App = () => {
   return (
-    <main>
-      <h1>App</h1>
+    <main className="h-screen grid place-items-center">
+      <Todo />
     </main>
   );
 };
