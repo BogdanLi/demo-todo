@@ -1,22 +1,14 @@
-import { useEffect, useState } from "react";
-import SearchBar from "./SearchBar";
 import { TodoResponse } from "../lib/types/TodoTypes";
+import SearchBar from "./SearchBar";
 
-const url = "http://localhost:3000/todos";
+export const url = "http://localhost:3000/todos";
 
-const Todo = () => {
-  const [todos, setTodos] = useState<TodoResponse | null>(null);
+type Props = {
+  showModal: () => void;
+  todos: TodoResponse | null;
+};
 
-  useEffect(() => {
-    (async () => {
-      const response = await fetch(url);
-
-      const data: TodoResponse = await response.json();
-
-      setTodos(data);
-    })();
-  }, []);
-
+const Todo = ({ showModal, todos }: Props) => {
   return (
     <div className="space-y-4 w-full">
       <h1 className="text-4xl font-bold">Todo App</h1>
@@ -24,7 +16,10 @@ const Todo = () => {
       <div className="bg-indigo-50 p-12 rounded-xl">
         <div className="flex gap-4">
           <SearchBar />
-          <button className="px-4 py-2 rounded-lg bg-green-600 text-white">
+          <button
+            onClick={showModal}
+            className="px-4 py-2 rounded-lg bg-green-600 text-white"
+          >
             Add new
           </button>
         </div>
@@ -58,3 +53,6 @@ const Todo = () => {
 };
 
 export default Todo;
+
+// TODO: Модалка с полями Название и кнопкой "Добавить"
+// TODO: Сделать добавление задачи на сервер
